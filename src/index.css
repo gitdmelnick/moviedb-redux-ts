@@ -2,6 +2,9 @@
   --color-primary:#009c8f;
   --color-primary-light:#23aa8f;
   --color-primary-dark:#008d8c;
+  --color-secondary: #1c6373;
+  --color-secondary-light: #0b717e;
+  --color-secondary-dark: #255566;
   --color-grey-light-1: #faf9f9;
   --color-grey-light-2: #f4f2f2;
   --color-grey-light-3: #f0eeee;
@@ -41,4 +44,8 @@ body {
   background-color: #fff;
 
   min-height: 100vh;
+}
+
+h1 {
+  color:var(--color-grey-light-1);
 }
