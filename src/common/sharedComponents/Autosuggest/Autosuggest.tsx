@@ -2,23 +2,30 @@ import React, { useState, ChangeEvent, KeyboardEvent, MouseEvent  } from "react"
 import cl from "./Autosuggest.module.css";
 
 // Temporary type until proper entity type is added
+type Suggestion = {
+  value: string;
+  key: string | number;
+}
+
 type AutosuggestProps = {
-  suggestions: string[];
+  suggestions: Suggestion[];
 }
 
 export const Autosuggest = ({suggestions}:AutosuggestProps) => {
   const [activeSuggestion, setActiveSuggestion] = useState<number>(0);
 
   // filteredSuggestions might be unnecessary
-  const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
+  const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion[]>([]);
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<string>("");
+
+  let suggestionsList; 
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
     const userInput = e.currentTarget.value;
 
     const filteredSuggestions = suggestions.filter(
-      suggestions => suggestions.toLocaleLowerCase().indexOf(userInput.toLocaleLowerCase()) > -1
+      suggestion => suggestion.value.substr(0, userInput.length).toLocaleLowerCase() === userInput.toLocaleLowerCase()
     );
 
     setActiveSuggestion(0);
@@ -27,19 +34,19 @@ export const Autosuggest = ({suggestions}:AutosuggestProps) => {
     setUserInput(e.currentTarget.value);
   }
 
-  const onClick = (e: MouseEvent<HTMLInputElement>) => {
+  const onClick = (e: MouseEvent<HTMLElement>) => {
     setActiveSuggestion(0);
     setFilteredSuggestions([]);
     setShowSuggestions(false);
     setUserInput(e.currentTarget.innerText);
   }
 
-  const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
     switch (e.key) {
       case "Enter":
         setActiveSuggestion(0);
         setShowSuggestions(false);
-        setUserInput(filteredSuggestions[activeSuggestion]);
+        setUserInput(filteredSuggestions[activeSuggestion].value);
         break;
       case "ArrowUp":
         if(activeSuggestion === 0) {
@@ -61,9 +68,36 @@ export const Autosuggest = ({suggestions}:AutosuggestProps) => {
     }
   }
 
+  if (showSuggestions && userInput) {
+    if (filteredSuggestions.length) {
+      suggestionsList = (
+        <ul className={cl.suggestions}>
+          {filteredSuggestions.map((suggestion, index) => {
+            let className;
+  
+            if (index === activeSuggestion) {
+              className = cl.suggestionActive;
+            }
+            return (
+              <li className={className} key={suggestion.key} onClick={onClick}>
+                {suggestion.value}
+              </li>
+            );
+          })}
+        </ul>
+      );
+    } 
+  }
 
-
-
-
-  return <></>;
+  return (
+    <>
+        <input
+          type="text"
+          onChange={onChange}
+          onKeyDown={onKeyDown}
+          value={userInput}
+        />
+        {suggestionsList}
+    </>
+  )
 };
