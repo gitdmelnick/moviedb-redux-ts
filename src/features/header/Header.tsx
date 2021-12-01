@@ -1,7 +1,7 @@
 import cl from "./Header.module.css";
 import Button from "../../common/sharedComponents/Button/Button";
 
-export const Header = () => {
+const Header = () => {
 
   return (
     <header className={cl.header}>
@@ -14,3 +14,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;

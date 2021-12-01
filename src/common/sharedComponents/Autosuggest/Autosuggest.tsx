@@ -1,103 +1,77 @@
-import React, { useState, ChangeEvent, KeyboardEvent, MouseEvent  } from "react";
+import { useState, ChangeEvent, MouseEvent, useCallback } from "react";
 import cl from "./Autosuggest.module.css";
 
-// Temporary type until proper entity type is added
 type Suggestion = {
   value: string;
   key: string | number;
-}
+};
 
 type AutosuggestProps = {
   suggestions: Suggestion[];
-}
+  // Doesn't look right?
+  onClick: <T>(arg?: T) => void;
+  onChange: <T>(arg?: T) => void;
+};
 
-export const Autosuggest = ({suggestions}:AutosuggestProps) => {
-  const [activeSuggestion, setActiveSuggestion] = useState<number>(0);
+const debounce = (callback: Function, delay = 350) => {
+  let timer: ReturnType<typeof setTimeout>;
 
-  // filteredSuggestions might be unnecessary
-  const [filteredSuggestions, setFilteredSuggestions] = useState<Suggestion[]>([]);
+  return (...args: any[]) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => callback(...args), delay);
+  };
+};
+
+// Needs splitting into 2 components
+const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<string>("");
 
-  let suggestionsList; 
+  const debouncedInput = useCallback(
+    debounce((inputText: string) => onChange(inputText)),
+    []
+  );
 
-  const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const userInput = e.currentTarget.value;
 
-    const filteredSuggestions = suggestions.filter(
-      suggestion => suggestion.value.substr(0, userInput.length).toLocaleLowerCase() === userInput.toLocaleLowerCase()
-    );
-
-    setActiveSuggestion(0);
-    setFilteredSuggestions(filteredSuggestions);
     setShowSuggestions(true);
-    setUserInput(e.currentTarget.value);
-  }
+    setUserInput(userInput);
 
-  const onClick = (e: MouseEvent<HTMLElement>) => {
-    setActiveSuggestion(0);
-    setFilteredSuggestions([]);
+    debouncedInput(userInput);
+  };
+
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
     setShowSuggestions(false);
     setUserInput(e.currentTarget.innerText);
-  }
 
-  const onKeyDown = (e: KeyboardEvent<HTMLElement>) => {
-    switch (e.key) {
-      case "Enter":
-        setActiveSuggestion(0);
-        setShowSuggestions(false);
-        setUserInput(filteredSuggestions[activeSuggestion].value);
-        break;
-      case "ArrowUp":
-        if(activeSuggestion === 0) {
-          return;
-        }
+    onClick(e.currentTarget.getAttribute("data-id"));
+  };
 
-        setActiveSuggestion(activeSuggestion - 1);
-        break;        
-      case "ArrowDown":
-        if(activeSuggestion - 1 === filteredSuggestions.length) {
-          return;
-        }
-        setActiveSuggestion(activeSuggestion + 1);
-
-        break;
-      default:
-        console.log(e.key);
-        break;
+  const renderAutosuggest = () => {
+    if (showSuggestions && userInput) {
+      if (suggestions.length) {
+        return (
+          <ul className={cl.suggestions}>
+            {suggestions.map(({ value, key }, index) => {
+              return (
+                <li key={key} onClick={handleClick} data-id={key}>
+                  {value}
+                </li>
+              );
+            })}
+          </ul>
+        );
+      }
     }
-  }
-
-  if (showSuggestions && userInput) {
-    if (filteredSuggestions.length) {
-      suggestionsList = (
-        <ul className={cl.suggestions}>
-          {filteredSuggestions.map((suggestion, index) => {
-            let className;
-  
-            if (index === activeSuggestion) {
-              className = cl.suggestionActive;
-            }
-            return (
-              <li className={className} key={suggestion.key} onClick={onClick}>
-                {suggestion.value}
-              </li>
-            );
-          })}
-        </ul>
-      );
-    } 
-  }
+  };
 
   return (
-    <>
-        <input
-          type="text"
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          value={userInput}
-        />
-        {suggestionsList}
-    </>
-  )
+    <div className={cl.suggestionsContainer}>
+      <input type="text" onChange={handleChange} value={userInput} />
+      {renderAutosuggest()}
+    </div>
+  );
 };
+
+export default Autosuggest;

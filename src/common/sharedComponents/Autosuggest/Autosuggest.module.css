@@ -1,16 +1,14 @@
-/* .btn {
-    padding: 1.5rem 4rem;
-    border-radius: 5rem;
-    transition: all .2s;
-    font-size: 1.6rem;
-    border: none;
-    cursor: pointer;
-} */
+.suggestions-container,
+.suggestions-container > * {
+  font-size: 1.6rem;
+  padding: 1.5rem 4rem;
+  transition: all .2s;
+}
 
 input {
   border: 1px solid #999;
   font-size: 1.6rem;
-  padding: 0.5rem;
+  padding: 1.5rem 4rem;
   width: 300px;
 }
 
@@ -19,17 +17,15 @@ input {
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
-  max-height: 143px;
-  overflow-y: auto;
-  padding-left: 0;
-  width: calc(300px + 1rem);
+  font-size: 1.6rem;
+  padding: 1.5rem 4rem;
+  width: 300px;
 }
 
 .suggestions li {
   padding: 0.5rem;
 }
 
-.suggestion-active,
 .suggestions li:hover {
   background-color: #008f68;
   color: #fae042;
