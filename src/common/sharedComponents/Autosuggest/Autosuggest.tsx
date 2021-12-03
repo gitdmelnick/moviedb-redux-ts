@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, MouseEvent, useCallback } from "react";
-import cl from "./Autosuggest.module.css";
+import s from "./Autosuggest.module.css";
+import utils from "../../utilities/utilities";
 
 type Suggestion = {
   value: string;
@@ -8,27 +9,16 @@ type Suggestion = {
 
 type AutosuggestProps = {
   suggestions: Suggestion[];
-  // Doesn't look right?
-  onClick: <T>(arg?: T) => void;
-  onChange: <T>(arg?: T) => void;
+  onClick: (event: MouseEvent) => void;
+  onChange: (event: MouseEvent) => void;
 };
 
-const debounce = (callback: Function, delay = 350) => {
-  let timer: ReturnType<typeof setTimeout>;
-
-  return (...args: any[]) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => callback(...args), delay);
-  };
-};
-
-// Needs splitting into 2 components
 const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
   const [showSuggestions, setShowSuggestions] = useState<boolean>(false);
   const [userInput, setUserInput] = useState<string>("");
 
   const debouncedInput = useCallback(
-    debounce((inputText: string) => onChange(inputText)),
+    utils.debounce((event: MouseEvent) => onChange(event)),
     []
   );
 
@@ -45,14 +35,14 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
     setShowSuggestions(false);
     setUserInput(e.currentTarget.innerText);
 
-    onClick(e.currentTarget.getAttribute("data-id"));
+    onClick(e);
   };
 
   const renderAutosuggest = () => {
     if (showSuggestions && userInput) {
       if (suggestions.length) {
         return (
-          <ul className={cl.suggestions}>
+          <ul className={s.suggestions}>
             {suggestions.map(({ value, key }, index) => {
               return (
                 <li key={key} onClick={handleClick} data-id={key}>
@@ -67,7 +57,7 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
   };
 
   return (
-    <div className={cl.suggestionsContainer}>
+    <div className={s.suggestionsContainer}>
       <input type="text" onChange={handleChange} value={userInput} />
       {renderAutosuggest()}
     </div>

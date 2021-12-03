@@ -1,12 +1,17 @@
-import { configureStore, ThunkAction, Action, getDefaultMiddleware } from '@reduxjs/toolkit';
-import { baseApi } from '../features/api/baseApi';
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  getDefaultMiddleware,
+} from "@reduxjs/toolkit";
+import { baseApi } from "../features/api/baseApi";
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
   },
 
-  middleware: (getDefaultMiddleware) => 
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware),
 });
 

@@ -1,14 +1,33 @@
 import { baseApi } from "../api/baseApi";
+import constants from "../../app/constants";
 
-const API_KEY: string = "8f52ccf9f912af022f7ba1538c8115f4";
-// Where do you store urls and api keys?
+const requiredParams = { api_key: constants.API_KEY, language: "en-US" };
+
 const moviesApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getMoviesByName: build.query<Movie, string>({
-      query: (name) => `search/movie/?api_key=${API_KEY}&language=en-US&query=${name}&page=1&include_adult=false`,
+      query: (name) => ({
+        url: "search/movie/",
+        method: "GET",
+        params: {
+          ...requiredParams,
+          query: name,
+          page: "1",
+          include_adult: "false",
+        },
+      }),
+    }),
+    getMovie: build.query<Movie, number>({
+      query: (id) => ({
+        url: `movie/${id}`,
+        method: "GET",
+        params: {
+          ...requiredParams,
+        },
+      }),
     }),
   }),
   overrideExisting: false,
 });
 
-export const { useGetMoviesByNameQuery } = moviesApi;
+export const { useGetMoviesByNameQuery,  } = moviesApi;

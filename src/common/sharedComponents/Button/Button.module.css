@@ -1,14 +1,13 @@
 .btn {
-    padding: 1.5rem 4rem;
-    border-radius: 5rem;
-    transition: all .2s;
-    font-size: 1.6rem;
-    border: none;
-    cursor: pointer;
+  padding: 1.5rem 4rem;
+  border-radius: 5rem;
+  transition: all 0.2s;
+  font-size: 1.6rem;
+  border: none;
+  cursor: pointer;
 }
 
 .btn:hover {
-    background-color: #2a4858;
-    color: var(--color-grey-light-3);
+  background-color: #2a4858;
+  color: var(--color-grey-light-3);
 }
-

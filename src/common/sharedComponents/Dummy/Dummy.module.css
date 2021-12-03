@@ -1,11 +1,10 @@
 .dummyContainer {
-    display: flex;
-    min-height: 60vh;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  min-height: 60vh;
+  justify-content: center;
+  align-items: center;
 }
 
 .dummyText {
-    color: var(--color-grey-dark-3);
+  color: var(--color-grey-dark-3);
 }
-
