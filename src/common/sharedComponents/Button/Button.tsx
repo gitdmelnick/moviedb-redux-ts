@@ -1,5 +1,5 @@
 import React from "react";
-import cl from "./Button.module.css";
+import s from "./Button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ type ButtonProps = {
 
 const Button = ({ children, ...props }: ButtonProps) => {
   return (
-    <button {...props} className={cl.btn}>
+    <button {...props} className={s.btn}>
       {children}
     </button>
   );

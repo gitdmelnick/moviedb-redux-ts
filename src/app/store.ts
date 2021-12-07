@@ -2,8 +2,8 @@ import {
   configureStore,
   ThunkAction,
   Action,
-  getDefaultMiddleware,
 } from "@reduxjs/toolkit";
+import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import { baseApi } from "../features/api/baseApi";
 
 export const store = configureStore({
@@ -23,3 +23,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
+setupListeners(store.dispatch);

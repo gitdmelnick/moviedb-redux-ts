@@ -2,7 +2,6 @@ import cl from "./Header.module.css";
 import Button from "../../common/sharedComponents/Button/Button";
 
 const Header = () => {
-
   return (
     <header className={cl.header}>
       <h1>MovieDB</h1>

@@ -10,7 +10,7 @@ type Suggestion = {
 type AutosuggestProps = {
   suggestions: Suggestion[];
   onClick: (event: MouseEvent) => void;
-  onChange: (event: MouseEvent) => void;
+  onChange: (event: ChangeEvent) => void;
 };
 
 const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
@@ -18,17 +18,18 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
   const [userInput, setUserInput] = useState<string>("");
 
   const debouncedInput = useCallback(
-    utils.debounce((event: MouseEvent) => onChange(event)),
+    utils.debounce((event: ChangeEvent<HTMLInputElement>) => onChange(event)),
     []
   );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const userInput = e.currentTarget.value;
+    const element = e.currentTarget;
+    const userInput = element.value;
 
     setShowSuggestions(true);
     setUserInput(userInput);
 
-    debouncedInput(userInput);
+    debouncedInput(e);
   };
 
   const handleClick = (e: MouseEvent<HTMLElement>) => {
@@ -45,7 +46,7 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
           <ul className={s.suggestions}>
             {suggestions.map(({ value, key }, index) => {
               return (
-                <li key={key} onClick={handleClick} data-id={key}>
+                <li key={key} onClick={e => handleClick(e)} data-id={key}>
                   {value}
                 </li>
               );
@@ -58,7 +59,7 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
 
   return (
     <div className={s.suggestionsContainer}>
-      <input type="text" onChange={handleChange} value={userInput} />
+      <input type="text" onChange={e => handleChange(e)} value={userInput} />
       {renderAutosuggest()}
     </div>
   );
