@@ -1,6 +1,6 @@
 import { useState, ChangeEvent, MouseEvent, useCallback } from "react";
 import s from "./Autosuggest.module.css";
-import utils from "../../utilities/utilities";
+import {debounce} from "../../utilities/utilities";
 
 type Suggestion = {
   value: string;
@@ -18,7 +18,7 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
   const [userInput, setUserInput] = useState<string>("");
 
   const debouncedInput = useCallback(
-    utils.debounce((event: ChangeEvent<HTMLInputElement>) => onChange(event)),
+    debounce((event: ChangeEvent<HTMLInputElement>) => onChange(event)),
     []
   );
 

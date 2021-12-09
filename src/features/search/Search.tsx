@@ -1,4 +1,5 @@
 import { useState, useMemo, useEffect, ChangeEvent, MouseEvent } from "react";
+import { useNavigate } from 'react-router-dom'
 import s from "./Search.module.css";
 import Autosuggest from "../../common/sharedComponents/Autosuggest/Autosuggest";
 import { useGetMoviesByNameQuery } from "../movies/moviesSlice";
@@ -7,14 +8,11 @@ const Search = () => {
   const [suggestions, setSuggestions] = useState<Movie[]>([]);
   const [query, setQuery] = useState<string>("");
   const { data } = useGetMoviesByNameQuery(query, { skip: !query });
+  const navigate = useNavigate();
 
   useEffect(() => {
     setSuggestions(data ?? []);
   }, [data]);
-
-  useEffect(() => {
-    console.log(data);
-  }, [])
 
   const transformedResults = useMemo(() => {
     return suggestions
@@ -31,6 +29,9 @@ const Search = () => {
 
   const handleOnClick = (e: MouseEvent) => {
     const element = e.currentTarget as HTMLElement;
+    if(query) {
+      navigate(`/search?query=${query}`);
+    }
   };
 
   return (

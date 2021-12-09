@@ -1,0 +1,8 @@
+.movies-container {
+  display: grid;
+  margin: 4rem auto;
+  width: 60%;
+  grid-template-columns: auto auto auto auto;
+  grid-auto-rows: 1fr;
+  gap: 5rem 2.5rem;
+}

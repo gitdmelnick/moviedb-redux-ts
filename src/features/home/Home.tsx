@@ -1,5 +1,7 @@
+import Search from "../search/Search";
+
 const Home = () => {
-  return <></>;
+  return <>        <Search/></>;
 };
 
 export default Home;

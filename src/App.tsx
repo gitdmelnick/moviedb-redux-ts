@@ -1,24 +1,24 @@
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import "./App.css";
 import { store } from "./app/store";
 import Header from "./features/header/Header";
 import Home from "./features/home/Home";
-import Movie from "./features/movie/Movie";
+import MovieInfo from "./features/movieInfo/MovieInfo";
 import ErrorBoundary from "./common/sharedComponents/ErrorBoundary/ErrorBoundary";
+import SearchResults from "./features/searchResults/SearchResults";
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <Header />
         <ErrorBoundary>
-          <Router>
+        <Header />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/movie/:id" element={<Movie />} />
+              <Route path="/search" element={<SearchResults/>}/>
+              <Route path="/movie/:id" element={<MovieInfo />} />
             </Routes>
-          </Router>
         </ErrorBoundary>
       </div>
     </Provider>
