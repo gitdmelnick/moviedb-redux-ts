@@ -1,4 +1,4 @@
-import cl from "./Dummy.module.css";
+import s from "./Dummy.module.css";
 
 type DummyProps = {
   text?: string;
@@ -6,8 +6,8 @@ type DummyProps = {
 
 const Dummy = ({ text = "Nothing to see here" }: DummyProps) => {
   return (
-    <div className={cl.dummyContainer}>
-      <h1 className={cl.dummyText}>{text}</h1>
+    <div className={s.dummy}>
+      <h1 className="heading-1">{text}</h1>
     </div>
   );
 };

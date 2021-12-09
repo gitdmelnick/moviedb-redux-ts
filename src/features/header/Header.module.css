@@ -1,14 +1,14 @@
 .header {
-    display: flex;
-    background-color: var(--color-primary);
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  background-color: var(--color-primary);
+  justify-content: space-between;
+  align-items: center;
 }
 
 .customNav {
-    margin: 1.5rem 0.5rem;
+  margin: 1.5rem 0.5rem;
 }
 
 .customNav > * {
-    margin: 0rem 0.5rem;
+  margin: 0rem 0.5rem;
 }
