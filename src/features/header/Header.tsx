@@ -1,5 +1,6 @@
 import cl from "./Header.module.css";
 import Button from "../../common/sharedComponents/Button/Button";
+import Search from "../search/Search";
 
 const Header = () => {
   return (

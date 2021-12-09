@@ -4,11 +4,13 @@ import {
   Action,
 } from "@reduxjs/toolkit";
 import { setupListeners } from "@reduxjs/toolkit/dist/query";
+import { userSlice } from "../common/slices/userSlice";
 import { baseApi } from "../features/api/baseApi";
 
 export const store = configureStore({
   reducer: {
     [baseApi.reducerPath]: baseApi.reducer,
+    user: userSlice.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
@@ -23,5 +25,6 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >;
+
 
 setupListeners(store.dispatch);

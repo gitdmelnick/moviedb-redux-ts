@@ -1,8 +1,9 @@
 .header {
   display: flex;
-  background-color: var(--color-primary);
+  /* background-color: var(--color-primary); */
   justify-content: space-between;
   align-items: center;
+  background-image: linear-gradient(to right, var(--color-primary-light), var(--color-primary-dark));
 }
 
 .customNav {
