@@ -36,6 +36,9 @@ export const userSlice = createSlice({
     clearState(state) {
       return { ...state, user: null, isError: false, errorMessages: [] };
     },
+    updateFavorites(state, {payload}) {
+      return ;
+    }
   },
 });
 
@@ -110,3 +113,4 @@ export const register =
       return dispatch(fulfill(user));
     }
 };
+
