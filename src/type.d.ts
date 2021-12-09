@@ -15,3 +15,10 @@ type Movie = {
   video: boolean;
   vote_average: number;
 };
+
+type User = {
+  username: string;
+  password: string;
+  favorites: number[];
+  history: string[];
+}

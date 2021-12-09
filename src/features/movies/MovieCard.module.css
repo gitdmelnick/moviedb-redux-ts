@@ -1,0 +1,38 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  /* border: 1px solid rgba(0, 0, 0, 0.125); */
+  /* border-radius: 0.5rem; */
+  transition: all 0.2s;
+}
+
+.card:hover {
+  scale: 1.05;
+}
+
+.card img {
+  width: 100%;
+  vertical-align: middle;
+  border-radius: 0.5rem;
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-rating {
+  background-color: transparent;
+  position: absolute;
+  scale: 0.9;
+  top: 1rem;
+  left: 1rem;
+}
+
+.card-link {
+  position: relative;
+}

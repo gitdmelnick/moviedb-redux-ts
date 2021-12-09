@@ -1,6 +1,6 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 import { baseApi } from "../api/baseApi";
-import apiConstants from "../../app/constants";
+import {apiConstants} from "../../app/constants";
 
 const requiredParams = { api_key: apiConstants.API_KEY, language: "en-US" };
 
@@ -24,7 +24,7 @@ const moviesApiSlice = baseApi.injectEndpoints({
       }),
       transformResponse: (responseData:any) => {
         // return moviesAdapter.setAll(initialState, responseData.results);
-        return responseData.results;
+        return responseData.results as Movie[];
       }
     }),
     getMovie: build.query<Movie, number>({

@@ -1,21 +1,16 @@
 import { useParams } from "react-router";
 import { useGetMovieQuery } from "../movies/moviesSlice";
-import s from "./Movie.module.css";
+import s from "./MovieInfo.module.css";
 import apiConstants from "../../app/constants";
 import Dummy from "../../common/sharedComponents/Dummy/Dummy";
 import Rating from "../../common/sharedComponents/Rating/Rating";
+import {dateFromString} from "../../common/utilities/utilities"
 
-const Movie = () => {
+const MovieInfo = () => {
   const { id } = useParams();
   const { data, isSuccess, isError } = useGetMovieQuery(Number(id), {
     skip: !Number(id),
   });
-
-  const getReleaseDate = (timestamp: string) => {
-    const releaseDate = new Date(timestamp);
-
-    return releaseDate;
-  };
 
   const getGenresString = (genres: { id: number; name: string }[]) => {
     return genres.map((genre) => {return genre.name;}).join(", ") ?? "TBD"
@@ -28,14 +23,14 @@ const Movie = () => {
     if (isSuccess) {
       const hasBackdrop = !!data?.backdrop_path;
       const hasPoster = !!data?.poster_path;
-      const releaseDate = getReleaseDate(data?.release_date ?? "");
+      const releaseDate = dateFromString(data?.release_date ?? "");
       const genres = getGenresString(data?.genres ?? []);
       const rating = data?.vote_average ?? 0;
 
       return (
         <div
           className={
-            hasBackdrop ? s.backdrop : `${s.backdrop} ${s["no-backdrop-image"]}`
+            hasBackdrop ? s.backdrop : s.backdrop.concat(` ${s["no-backdrop-image"]}`)
           }
           style={
             hasBackdrop
@@ -68,7 +63,7 @@ const Movie = () => {
                 <p>{data?.runtime}m</p>
               </div>
               <div className={s["info-actions"]}>
-                <Rating value={rating * 10} />
+                <Rating value={rating * 10 ?? "TDB"} />
               </div>
               <div className={s["info-overview"]}>
                 <h3 className="heading-3">Overview</h3>
@@ -85,4 +80,4 @@ const Movie = () => {
   return renderMovieInfo();
 };
 
-export default Movie;
+export default MovieInfo;
