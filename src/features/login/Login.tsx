@@ -14,7 +14,7 @@ const Login = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    dispatch(login({ username: username, password: password } as User));
+    dispatch(login({ username, password} as User));
   };
 
   const handleUsernameChange = (e: FormEvent<HTMLInputElement>) => {

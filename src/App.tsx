@@ -9,6 +9,7 @@ import MovieInfo from "./features/movieInfo/MovieInfo";
 import ErrorBoundary from "./common/sharedComponents/ErrorBoundary/ErrorBoundary";
 import SearchResults from "./features/searchResults/SearchResults";
 import Login from "./features/login/Login";
+import Register from "./features/register/Register";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
               <Route path="/search" element={<SearchResults />}/>
               <Route path="/movie/:id" element={<MovieInfo />} />
             </Routes>

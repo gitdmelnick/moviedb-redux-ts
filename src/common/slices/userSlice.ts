@@ -1,11 +1,11 @@
 import { createSlice, createSelector } from "@reduxjs/toolkit";
 import { errorConstants } from "../../app/constants";
 import { RootState, AppThunk, store } from "../../app/store";
-import { register } from "../../serviceWorker";
 import {
   getItemFromLocalStorage,
   setItemToLocalStorage,
-  validateInputs,
+  validateLogin,
+  validateRegister,
 } from "../utilities/utilities";
 
 type UserState = {
@@ -25,7 +25,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     fulfill(state, { payload }) {
-      state.currentUser = payload.currentUser;
+      state.currentUser = {...payload};
       state.isError = false;
       state.errorMessages = [];
       return state;
@@ -42,17 +42,17 @@ export const userSlice = createSlice({
 export const { fulfill, reject, clearState } = userSlice.actions;
 
 export const selectUser = (state: RootState) => state.user;
+export const selectFavorites = (state: RootState) => state.user.currentUser?.favorites;
 
 export const login =
   (user: User): AppThunk =>
   (dispatch) => {
-    const { errorStrings, isValid } = validateInputs(
+    const { errorStrings, isValid } = validateLogin(
       user.username,
       user.password
     );
 
     if (!isValid) {
-      console.log("entered");
       return dispatch(reject(errorStrings));
     }
 
@@ -77,21 +77,36 @@ export const logout = (): AppThunk => (dispatch) => {
   return dispatch(clearState());
 };
 
-export const registerUser =
-  (user: User): AppThunk =>
+export const register =
+  (user: User, confirmPassword: string): AppThunk =>
   (dispatch) => {
     let storedUsers: User[] | null = getItemFromLocalStorage("users");
 
-    if (storedUsers) {
-      const userExists = storedUsers.some(
-        (storedUser) => user.username === storedUser.username
-      );
+    storedUsers = storedUsers === null ? [] : Object.values(storedUsers);
+   
+    const { errorStrings, isValid } = validateRegister(
+      user.username,
+      user.password,
+      confirmPassword
+    );
+    
+    console.log(isValid);
 
-      if (userExists) dispatch(reject([errorConstants.USER_ALREADY_EXISTS]));
-      else {
-        storedUsers = [...storedUsers, user];
-        setItemToLocalStorage("users", storedUsers ?? []);
-        return dispatch(login(user));
-      }
+    if (!isValid) {
+      return dispatch(reject(errorStrings));
     }
-  };
+
+    console.log("Validation passed")
+
+    const userExists = storedUsers.some(
+      (storedUser) => user.username === storedUser.username
+    );
+
+    if (userExists) {;
+      return dispatch(reject([errorConstants.USER_ALREADY_EXISTS]));
+    } else {
+      storedUsers = [...storedUsers, user];
+      setItemToLocalStorage("users", storedUsers);
+      return dispatch(fulfill(user));
+    }
+};
