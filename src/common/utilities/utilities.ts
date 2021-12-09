@@ -1,3 +1,5 @@
+import { errorConstants } from "../../app/constants";
+
 export const debounce = (callback: Function, delay = 350) => {
   let timer: ReturnType<typeof setTimeout>;
 
@@ -14,10 +16,47 @@ export const dateFromString = (timestamp: string) => {
 };
 
 export const getItemFromLocalStorage = (key: string) => {
-    const localItem = localStorage.getItem(key);
-    return localItem ? JSON.parse(localItem) : null;
-}
+  const localItem = localStorage.getItem(key);
+  return localItem ? JSON.parse(localItem) : null;
+};
 
-export const setItemToLocalStorage = (key:string, value: any ) => {
-  localStorage.setItem(key, JSON.stringify({...value}));
-}
+export const setItemToLocalStorage = (key: string, value: any) => {
+  localStorage.setItem(key, JSON.stringify({ ...value }));
+};
+
+export const validateInputs = (
+  username: string,
+  password: string,
+  confirmPassword?: string
+) => {
+  const usernameLength = username.split(" ").join("").length;
+  const passwordLength = password.split(" ").join("").length;
+
+  const minUsernameLength = 4;
+  const maxUsernameLength = 64;
+
+  const minPasswordLength = 6;
+  const maxPasswordLength = 64;
+
+  let errors: string[] = [];
+
+  if (usernameLength === 0)
+    errors = [...errors, errorConstants.EMPTY_USERNAME_FIELD];
+
+  if (usernameLength >= 1 && usernameLength < minUsernameLength)
+    errors = [...errors, errorConstants.USERNAME_TOO_SHORT];
+
+  if (usernameLength > maxUsernameLength)
+    errors = [...errors, errorConstants.USERNAME_TOO_LONG];
+
+  if (passwordLength === 0)
+    errors = [...errors, errorConstants.EMPTY_PASSWORD_FIELD];
+
+  if (passwordLength >= 1 && passwordLength < minPasswordLength)
+    errors = [...errors, errorConstants.PASSWORD_TOO_SHORT];
+
+  if (passwordLength > maxPasswordLength)
+    errors = [...errors, errorConstants.PASSWORD_TOO_LONG];
+
+  return { errorStrings: errors, isValid: !errors.length };
+};

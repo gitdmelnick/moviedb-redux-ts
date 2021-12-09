@@ -5,47 +5,55 @@ import { register } from "../../serviceWorker";
 import {
   getItemFromLocalStorage,
   setItemToLocalStorage,
+  validateInputs,
 } from "../utilities/utilities";
 
-const initialState = {
-  user: null,
+type UserState = {
+  currentUser: User | null;
+  isError: boolean;
+  errorMessages: string[];
+};
+
+const initialState: UserState = {
+  currentUser: null,
   isError: false,
-  errorMessage: "",
+  errorMessages: [],
 };
 
 export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    login(state, { payload }) {
-      state.user = payload.user;
+    fulfill(state, { payload }) {
+      state.currentUser = payload.currentUser;
       state.isError = false;
-      state.errorMessage = "";
+      state.errorMessages = [];
+      return state;
     },
-    logout(state) {
-      state.user = null;
-      state.isError = false;
-      state.errorMessage = "";
+    reject(state, { payload }) {
+      return { ...state, isError: true, errorMessages: payload };
     },
-    rejectLogin(state, { payload }) {
-      state.isError = true;
-      state.errorMessage = payload.errorMessage;
-    },
-    rejectRegistration(state, { payload }) {
-      state.isError = true;
-      state.errorMessage = payload.errorMessage;
+    clearState(state) {
+      return { ...state, user: null, isError: false, errorMessages: [] };
     },
   },
 });
 
-export const { login, logout, rejectLogin, rejectRegistration } =
-  userSlice.actions;
+export const { fulfill, reject, clearState } = userSlice.actions;
 
-export const loginIfExists =
+export const selectUser = (state: RootState) => state.user;
+
+export const login =
   (user: User): AppThunk =>
   (dispatch) => {
-    if (!user.username && !user.password) {
-      dispatch(rejectLogin("Please enter your username and password"));
+    const { errorStrings, isValid } = validateInputs(
+      user.username,
+      user.password
+    );
+
+    if (!isValid) {
+      console.log("entered");
+      return dispatch(reject(errorStrings));
     }
 
     let storedUsers: User[] | null = getItemFromLocalStorage("users");
@@ -57,13 +65,17 @@ export const loginIfExists =
           user.password === storedUser.password
       );
 
-      isLoginValid
-        ? dispatch(login(user))
-        : dispatch(rejectLogin(errorConstants.INVALID_PASSWORD));
+      return isLoginValid
+        ? dispatch(fulfill(user))
+        : dispatch(reject([errorConstants.INVALID_PASSWORD]));
     } else {
-      dispatch(rejectLogin(errorConstants.USER_DOES_NOT_EXIST));
+      return dispatch(reject([errorConstants.USER_DOES_NOT_EXIST]));
     }
   };
+
+export const logout = (): AppThunk => (dispatch) => {
+  return dispatch(clearState());
+};
 
 export const registerUser =
   (user: User): AppThunk =>
@@ -75,12 +87,11 @@ export const registerUser =
         (storedUser) => user.username === storedUser.username
       );
 
-      if (userExists)
-        dispatch(rejectRegistration(errorConstants.USER_ALREADY_EXISTS));
+      if (userExists) dispatch(reject([errorConstants.USER_ALREADY_EXISTS]));
       else {
         storedUsers = [...storedUsers, user];
-        dispatch(login(user));
         setItemToLocalStorage("users", storedUsers ?? []);
+        return dispatch(login(user));
       }
     }
   };

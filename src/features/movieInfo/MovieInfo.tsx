@@ -1,7 +1,7 @@
 import { useParams } from "react-router";
 import { useGetMovieQuery } from "../movies/moviesSlice";
 import s from "./MovieInfo.module.css";
-import apiConstants from "../../app/constants";
+import {apiConstants} from "../../app/constants";
 import Dummy from "../../common/sharedComponents/Dummy/Dummy";
 import Rating from "../../common/sharedComponents/Rating/Rating";
 import {dateFromString} from "../../common/utilities/utilities"

@@ -1,14 +1,18 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import s from "./Button.module.css";
 
 type ButtonProps = {
   children: React.ReactNode;
-  onClick: () => void;
+  onClick: (e: MouseEvent) => void;
 };
 
-const Button = ({ children, ...props }: ButtonProps) => {
+const Button = ({ children, onClick}: ButtonProps) => {
+  const handleClick = (e: MouseEvent<HTMLElement>) => {
+    onClick(e);
+  };
+
   return (
-    <button {...props} className={s.btn}>
+    <button onClick={handleClick} className={s.btn}>
       {children}
     </button>
   );
