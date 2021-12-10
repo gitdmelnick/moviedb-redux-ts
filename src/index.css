@@ -1,13 +1,86 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --color-primary: #009c8f;
+  --color-primary-light: #23aa8f;
+  --color-primary-dark: #008d8c;
+  --color-secondary: #1c6373;
+  --color-secondary-light: #0b717e;
+  --color-secondary-dark: #255566;
+  --color-grey-light-1: #faf9f9;
+  --color-grey-light-2: #f4f2f2;
+  --color-grey-light-3: #f0eeee;
+  --color-grey-light-4: #ccc;
+  --color-grey-dark-1: #333;
+  --color-grey-dark-2: #777;
+  --color-grey-dark-3: #999;
+  --color-rating-high: #17D7A0;
+  --color-rating-mid: #FFC947;
+  --color-rating-low: #F05454;
+  --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, 0.3);
+  --shadow-light: 0 2rem 5rem rgba(0, 0, 0, 0.06);
+  --line: 1px solid var(--color-grey-light-2);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  /* default font size: 1rem = 10px */
+  font-size: 62.5%;
+  @media only screen and (max-width: 68.75em) {
+    html {
+      font-size: 50%; } }
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-dark-2);
+  background-color: #fff;
+}
+
+html, body, #root, .App {
+  height: 100%;
+  width: 100%;
+}
+
+p {
+  font-size: 1.6rem;
+}
+
+input {
+  font-size: 1.6rem;
+  padding: 1.5rem 4rem;
+  border-radius: 10rem;
+}
+
+input:focus {
+  outline: none;
+}
+
+input[type=text], input[type=password] {
+  color: inherit;
+  background-color: var(--color-grey-light-2);
+  border: none;
+  width: 90%;
+}
+
+input[type=submit] {
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.5rem 4rem;
+  display: inline-block;
+  position: relative;
+
+  border: none;
+  cursor: pointer;
 }

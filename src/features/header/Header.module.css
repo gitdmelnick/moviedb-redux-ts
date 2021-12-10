@@ -1,0 +1,89 @@
+.header {
+  display: flex;
+  /* background-color: var(--color-primary); */
+  justify-content: space-between;
+  align-items: center;
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary-light),
+    var(--color-primary-dark)
+  );
+}
+
+.header-search {
+  flex: 0 1 40%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-nav {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  margin-right: 4rem;
+}
+
+.user-nav > * {
+  padding: 0 2rem;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.nav-icon-box {
+  position: relative;
+  padding: 2rem;
+}
+
+.nav-icon-box h2 {
+  padding-left: 1rem;
+}
+
+.nav-icon {
+  height: 2.25rem;
+  width: 2.25rem;
+  background-color: #fff;
+}
+
+.nav-icon-user {
+  mask-image: url(../../svg/bxs-user.svg);
+}
+
+.nav-icon-favorites {
+  mask-image: url(../../svg/bx-bookmark-heart.svg);
+}
+
+.nav-icon-logout {
+  mask-image: url(../../svg/bx-log-out.svg);
+}
+
+.nav-icon-history {
+  mask-image: url(../../svg/bx-history.svg);
+}
+
+.nav-icon-logo {
+  height: 1.6rem;
+  width: 1.6rem;
+  scale:2;
+  line-height: 1.6rem;
+  mask-repeat: no-repeat;
+  mask-image: url(../../svg/021-video-camera.svg);
+  margin-right: 1rem;
+  margin-left: 1.2rem;
+  padding-bottom: 2rem;
+}
+
+.nav-link:link, .nav-link:visited {
+  color: var(--color-grey-light-1);
+  text-decoration: none;
+  text-transform: uppercase;
+  display: block;
+  padding: 1.5rem 3rem;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+}

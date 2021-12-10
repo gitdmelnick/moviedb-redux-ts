@@ -1,0 +1,28 @@
+.rating {
+  width: 6rem;
+  line-height: 6rem;
+  border-radius: 50%;
+  background-color: var(--color-grey-dark-3);
+  color: #fff;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  transition: 0.2s all;
+  user-select: none;
+}
+
+.rating:hover {
+  scale: 1.1;
+}
+
+.rating-low {
+  background-color: var(--color-rating-low);
+}
+
+.rating-mid {
+  background-color: var(--color-rating-mid);
+}
+
+.rating-high {
+  background-color: var(--color-rating-high);
+}

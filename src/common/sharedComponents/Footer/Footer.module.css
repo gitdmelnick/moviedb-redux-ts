@@ -1,0 +1,21 @@
+.footer {
+  text-align: center;
+  padding: 4rem;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 8rem;
+  width: 100%;
+  background-image: linear-gradient(
+    to right,
+    var(--color-primary-light),
+    var(--color-primary-dark)
+  );
+}
+
+.footer-wrapper {
+  display: block;
+  padding: 4rem;
+  height: 8rem;
+  width: 100%;
+}
