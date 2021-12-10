@@ -8,7 +8,7 @@ export const apiConstants = {
 
 export const errorConstants = {
   USER_DOES_NOT_EXIST: "User does not exist.",
-  INVALID_PASSWORD: "Invalid username or password.",
+  INVALID_PASSWORD: "Invalid password.",
   USER_ALREADY_EXISTS: "A user with this name already exists. Use a different name.",
   PASSWORD_TOO_SHORT: "Password should be atleast 6 characters long.",
   PASSWORD_INVALID_CHARS: "Password shouldn't contain invalid characters.",

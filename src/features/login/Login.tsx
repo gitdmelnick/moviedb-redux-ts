@@ -1,9 +1,8 @@
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import s from "./Login.module.css"
-import { store } from "../../app/store";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { login, selectUser } from "../../common/slices/userSlice";
+import { useAppDispatch, useAppSelector, useOnUnmount } from "../../app/hooks";
+import { clearErrors, login, selectUser } from "../../common/slices/userSlice";
 import FormErrorCard from "../../common/sharedComponents/FormErrorCard/FormErrorCard";
 
 const Login = () => {
@@ -11,6 +10,8 @@ const Login = () => {
   const {currentUser, isError, errorMessages} = useAppSelector(selectUser);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  useOnUnmount(() => dispatch(clearErrors));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();

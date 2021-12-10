@@ -21,7 +21,6 @@ export const getItemFromLocalStorage = (key: string) => {
 };
 
 export const setItemToLocalStorage = (key: string, value: any) => {
-  // localStorage.setItem(key, JSON.stringify({ ...value }));
   localStorage.setItem(key, JSON.stringify(value));
 };
 

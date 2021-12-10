@@ -58,8 +58,8 @@ const Autosuggest = ({ suggestions, onClick, onChange }: AutosuggestProps) => {
   };
 
   return (
-    <div className={s.suggestionsContainer}>
-      <input type="text" onChange={e => handleChange(e)} value={userInput} />
+    <div className={s["suggestions-container"]}>
+      <input type="text" placeholder="Search" onChange={e => handleChange(e)} value={userInput} />
       {renderAutosuggest()}
     </div>
   );

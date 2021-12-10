@@ -2,24 +2,38 @@
 .suggestions-container > * {
   font-size: 1.6rem;
   padding: 1.5rem 4rem;
-  transition: all .2s;
+  transition: all 0.2s;
+}
+.suggestions-container {
+  position: relative;
+  min-width: 60rem;
 }
 
-input {
-  border: 1px solid #999;
+.suggestions-container input {
   font-size: 1.6rem;
   padding: 1.5rem 4rem;
-  width: 300px;
+  width: 100%;
+}
+
+.suggestions-container input::selection {
+  background: var(--color-grey-dark-2);
+  color: #fff;
 }
 
 .suggestions {
+  position: absolute;
   border: 1px solid #999;
+  background-color: var(--color-grey-light-2);
   border-top-width: 0;
+  border-radius: 0 0 2rem 2rem;
   list-style: none;
-  margin-top: 0;
+  /* top: 80%; */
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 1.6rem;
   padding: 1.5rem 4rem;
-  width: 300px;
+  width: 80%;
+  z-index: 10;
 }
 
 .suggestions li {
@@ -27,8 +41,8 @@ input {
 }
 
 .suggestions li:hover {
-  background-color: #008f68;
-  color: #fae042;
+  background-color: var(--color-grey-dark-2);
+  color: #fff;
   cursor: pointer;
   font-weight: 700;
 }

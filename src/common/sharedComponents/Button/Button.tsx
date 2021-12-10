@@ -12,7 +12,7 @@ const Button = ({ children, onClick}: ButtonProps) => {
   };
 
   return (
-    <button onClick={handleClick} className={s.btn}>
+    <button onClick={handleClick} className={`${s.btn} rounded`}>
       {children}
     </button>
   );

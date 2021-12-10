@@ -1,15 +1,17 @@
 import s from "./Register.module.css";
 import { FormEvent, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { register, selectUser } from "../../common/slices/userSlice";
+import { useAppDispatch, useAppSelector, useOnUnmount } from "../../app/hooks";
+import { clearErrors, register, selectUser } from "../../common/slices/userSlice";
 import FormErrorCard from "../../common/sharedComponents/FormErrorCard/FormErrorCard";
 
 const Register = () => {
   const dispatch = useAppDispatch();
-  const { currentUser, isError, errorMessages } = useAppSelector(selectUser);
+  const { isError, errorMessages } = useAppSelector(selectUser);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  useOnUnmount(() => dispatch(clearErrors()));
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -31,9 +33,9 @@ const Register = () => {
   return (
     <div className={s["register-container"]}>
       <form onSubmit={handleSubmit}>
-        <h2 className="heading-3">Register for an account</h2>
+        <h2 className="heading-3">Sign up for an account</h2>
         <p>
-          Registering for an account is free and easy. Fill out the form below
+          Signing up for an account is free and easy. Fill out the form below
           to get started.
         </p>
         {isError && <FormErrorCard errorMessages={errorMessages} />}

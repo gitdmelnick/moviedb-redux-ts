@@ -2,7 +2,6 @@ import {
   configureStore,
   ThunkAction,
   Action,
-  createReducer,
 } from "@reduxjs/toolkit";
 
 import { combineReducers } from "redux";

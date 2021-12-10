@@ -1,0 +1,22 @@
+.history-container{
+    text-align: left;
+    position: absolute;
+    margin-top: 3rem;
+    margin-left: 4rem;
+    /* transform: translateX(-50%); */
+}
+
+.history-list {
+    list-style: none;
+    display: inline-block;
+    text-align: left;
+}
+
+.history-list li {
+    border-top: 1px var(--line) solid ;
+    padding: 1.5rem 2rem;
+}
+
+.history-list a {
+    text-decoration: none;
+}

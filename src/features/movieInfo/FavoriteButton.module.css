@@ -1,0 +1,35 @@
+.favorite-button {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    background-color: var(--color-secondary-dark);
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    transition: 0.2s all;
+    user-select: none;
+    /* background: none; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    padding: 0;
+  }
+
+  .favorite-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    mask-image: url(../../svg/bx-heart.svg);
+    background-color: #fff;
+  }
+
+  .favorite-active {
+    mask-image: url(../../svg/bxs-heart.svg);
+    background-color: var(--color-rating-low);
+  }
+  
+  .favorite-button:hover {
+    scale: 1.1;
+  }
+
+  
