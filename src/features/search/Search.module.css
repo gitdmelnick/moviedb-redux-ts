@@ -1,4 +1,17 @@
 .search {
     display: flex;
-    width: 100%;
+    position: relative;
+    flex: 0 0 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* width: 100%; */
+}
+
+.search button {
+    position: absolute;
+    right: 0;
+    background-color:var(--color-rating-high);
+    color: var(--color-grey-light-2);
+    /* transform: translateX(50%); */
 }

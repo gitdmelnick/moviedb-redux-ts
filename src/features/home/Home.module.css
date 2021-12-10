@@ -1,0 +1,36 @@
+.home-container {
+    display: flex;
+    width: 80%;
+    margin-right:auto;
+    margin-left:auto;
+    align-self: center;
+}
+
+.home-backdrop {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-size: contain;
+    background-size: cover;
+    background-position: center center;
+    min-height: calc(50vh - 4rem);
+    flex-wrap: wrap;
+
+    border-radius:0 0 1rem 1rem;
+    
+}
+
+
+
+.home-container h1, h2{
+    color:var(--color-grey-light-2);
+    width: 100%;
+}
+
+.home-text > * {
+    display: flex;
+    width: 100%;
+    margin-left: 10rem;
+}
