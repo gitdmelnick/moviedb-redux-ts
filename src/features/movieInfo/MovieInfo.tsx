@@ -31,7 +31,7 @@ const MovieInfo = () => {
       isFavorite ? dispatch(removeFromFavorites(parseInt(id!))) : dispatch(addToFavorites(parseInt(id!)));
       setIsFavorite(!isFavorite);
     } else {
-      navigate('/login');
+      navigate('/signup');
     }
   }
 

@@ -67,7 +67,7 @@
 .nav-icon-logo {
   height: 1.6rem;
   width: 1.6rem;
-  scale:2;
+  scale: 2;
   line-height: 1.6rem;
   mask-repeat: no-repeat;
   mask-image: url(../../svg/021-video-camera.svg);
@@ -76,7 +76,8 @@
   padding-bottom: 2rem;
 }
 
-.nav-link:link, .nav-link:visited {
+.nav-link:link,
+.nav-link:visited {
   color: var(--color-grey-light-1);
   text-decoration: none;
   text-transform: uppercase;
